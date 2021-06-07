@@ -14,6 +14,7 @@ mymap.on('mousemove', function(e){
 })
 
 // adding a GeoJson layer to the map from Db
+
 // pointToLayer is a loop to add features of the data to the map
 var lyrAttractions;
 refreshAttractions();

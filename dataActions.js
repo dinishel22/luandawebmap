@@ -17,7 +17,7 @@ $(".btnCancel").click(function(){
     $("#dlgAttraction").hide();
 });
 
-// Ajax call for the save buttons
+// Ajax call for the save button, and this btn is links to the add_attraction php file
 $("#btnSave").click(function(){
     $.ajax({
        url:'add_attraction.php',
