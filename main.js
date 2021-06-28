@@ -24,9 +24,11 @@ function refreshAttractions() {
     url: 'load_attractions.php',
     success: function(response) {
       if(lyrAttractions){
-        mymap.removeLayer(lyrAttractions);
-        $("side_panel").html("");
-      }
+        //mymap.removeLayer(lyrAttractions);
+        //lyrAttractions.remove();
+        lyrAttractions.removeFrom(mymap);
+        $("#zoomButtons").html("");
+      };
       //console.log(JSON.parse(response));
       lyrAttractions = L.geoJSON(JSON.parse(response),{pointToLayer: function(feature, latlng) {
 
@@ -34,7 +36,7 @@ function refreshAttractions() {
         var strButton = "<button id = 'zoomTo" + feature.properties.name.replace(/ /g, '');
         strButton += "' class='form-control btn-primary attraction'>";
         strButton += feature.properties.name+ "</button>";
-        $("#side_panel").append(strButton);
+        $("#zoomButtons").append(strButton);
 
         // Adding event hendler for each button
         $("#zoomTo" + feature.properties.name.replace(/ /g, '')).click(function(){
@@ -43,10 +45,10 @@ function refreshAttractions() {
 
         // Adding popup for each feature
         var strPopup = "<h4>" + feature.properties.name + "</h4><hr>";
-        strPopup += "<h5>Category:" +feature.properties.category+"</h5>";
+        strPopup += "<h5>Category: " +feature.properties.category+"</h5>";
         strPopup += "<a href='" +feature.properties.web + "' target='blank'>";
-        strPopup += "<img src='" +feature.properties.image + "' width=200px>";
-        strPopup += "</a>";
+        strPopup += "<img src='" +feature.properties.image + "' width='200px'>";
+        strPopup += "</a><br><br><button id='btnEdit' class='btn btn-primary center-block' onclick='editAttraction("+feature.properties.id+")'>Edit</button>";
         return L.marker(latlng).bindPopup(strPopup);
       }}).addTo(mymap)
       mymap.fitBounds(lyrAttractions.getBounds())
