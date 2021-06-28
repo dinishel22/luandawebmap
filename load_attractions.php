@@ -1,8 +1,15 @@
 <?php
 try {
+  $queryStr = "SELECT id, name, image, web, category,
+    ST_AsGeoJSON(ST_Transform(geom,4326),5) as geom FROM lda_attractions ORDER BY name";
+  if(isset($_POST['filter'])){
+    if($_POST['filter']!=='All'){
+      $queryStr = "SELECT id, name, image, web, category,ST_AsGeoJSON(ST_Transform(geom,4326),5) as geom
+      FROM lda_attractions WHERE category = '{$_POST['filter']}' ORDER BY name";
+    }
+  }
   $db = new PDO("pgsql:host=hdevrds.ctrw9wzqmrtp.us-east-1.rds.amazonaws.com;port=5432;dbname=luandawebmap;","luanda","kiand@");
-  $sql = $db->query("SELECT id, name, image, web, category,
-    ST_AsGeoJSON(ST_Transform(geom,4326),5) as geom FROM lda_attractions");
+  $sql = $db->query($queryStr);
 
   $features = [];
   while($row = $sql->fetch(PDO::FETCH_ASSOC)){
@@ -17,7 +24,7 @@ try {
 
 } catch (PDOException $e) {
 
-  echo $e->getMessage(); 
+  echo $e->getMessage();
 
 }
 

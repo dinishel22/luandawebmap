@@ -33,6 +33,14 @@
   <!-- Side panel -->
   <div id="side_panel" class= "col-md-3">
     <h1 class="text-center">Attractions</h1>
+    <!-- filter the features by category -->
+    <select id='filter' class='form-control'>
+        <option value='All'>All Attractions</option>
+        <option value='Park'>Park</option>
+        <option value='Museum'>Museum</option>
+        <option value='Place'>Place</option>
+        <option value='Neighborhood'>Neighborhood</option>
+    </select>
     <!-- Adding buttos that zoom the specific location when clicked  -->
     <div id="zoomButtons"></div>
   </div>
@@ -70,7 +78,6 @@
                               <option value="Museum">Museum</option>
                               <option value="Place">Place</option>
                               <option value="Neighborhood">Neighborhood</option>
-                              <option value="Pueblo Magico">Pueblo Magico</option>
                           </select>
                     </div>
                     <div class="col-sm-6">

@@ -22,6 +22,8 @@ function refreshAttractions() {
 
   $.ajax({
     url: 'load_attractions.php',
+    type:'POST',
+    data:{filter:$("#filter").val()},
     success: function(response) {
       if(lyrAttractions){
         //mymap.removeLayer(lyrAttractions);
@@ -56,3 +58,8 @@ function refreshAttractions() {
 
   });
 }
+
+// filter; updates the app whenever map features are filtered
+$("#filter").change(function(){
+    refreshAttractions();
+});
