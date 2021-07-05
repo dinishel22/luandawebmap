@@ -12,7 +12,7 @@ mymap.on('click', function(e){
 
 
 
-// The cancell button. Closes/hides the dialogbox/form cancels add or edit action 
+// The cancell button. Closes/hides the dialogbox/form cancels add or edit action
 $(".btnCancel").click(function(){
     $("#dlgAttraction").hide();
 });
@@ -81,7 +81,7 @@ $("#btnUpdate").click(function(){
            longitude:$("#longitude").val()
        },
        success:function(response){
-//                       alert(response);
+
            $("#dlgAttraction").hide();
            refreshAttractions();
        }
@@ -98,10 +98,27 @@ $("#btnDelete").click(function(){
                id:$("#idDisplay").html(),
            },
            success:function(response){
-//                          alert(response);
+
                $("#dlgAttraction").hide();
                refreshAttractions();
            }
        });
     }
+});
+
+// ajax call! Grab the five closest points to the point clicked on the map
+$("#btnClosest").click(function(){
+    $.ajax({
+       url:'closest_attractions.php',
+       type:'POST',
+       data:{
+           latitude:$("#latitude").val(),
+           longitude:$("#longitude").val()
+       },
+       success:function(response){
+           $("#form").hide();
+           $("#table").show();
+           $("#tableData").html(response);
+       }
+   });
 });
